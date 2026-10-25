@@ -1,253 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>连腾辉 · 简历 (网页版)</title>
-  <style>
-    /* 保持你原有的所有样式不变 */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background-color: #f2f5f9; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e2b3c; padding: 2rem 1rem; }
-    .resume-card { max-width: 1000px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 20px 35px -8px rgba(0, 20, 40, 0.15); overflow: hidden; transition: all 0.2s ease; }
-    .header { padding: 2rem 2.5rem 1.2rem 2.5rem; background: linear-gradient(145deg, #ffffff 0%, #f9fcff 100%); border-bottom: 1px solid #e6edf4; }
-    .name-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem 1.5rem; margin-bottom: 1rem; }
-    .name { font-size: 2.8rem; font-weight: 600; letter-spacing: -0.02em; color: #0b2b40; line-height: 1.2; }
-    .badge-group { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; }
-    .badge { background: #eaf0f8; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.9rem; font-weight: 500; color: #1e405b; display: inline-flex; align-items: center; gap: 0.3rem; border: 1px solid #cdddee; }
-    .contact-bar { display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; margin-top: 0.5rem; font-size: 1rem; color: #2f4a62; }
-    .contact-item { display: flex; align-items: center; gap: 0.5rem; }
-    .contact-item i { font-style: normal; font-weight: 500; color: #2e6b97; }
-    .contact-item a { color: #1e2b3c; text-decoration: none; border-bottom: 1px dotted transparent; transition: border-color 0.2s; }
-    .contact-item a:hover { border-bottom: 1px dotted #2e6b97; color: #0b2b40; }
-    .divider { height: 1px; background: linear-gradient(90deg, transparent, #c0d4e8 20%, #c0d4e8 80%, transparent); margin: 0.5rem 0 0 0; }
-    .main-content { display: grid; grid-template-columns: 1fr 2fr; gap: 0; background: #ffffff; }
-    .sidebar { background-color: #f8fafd; padding: 2rem 2rem 2rem 2.5rem; border-right: 1px solid #e2eaf2; }
-    .section { margin-bottom: 2.2rem; }
-    .section-title { font-size: 1.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: #1c4e70; margin-bottom: 1.2rem; border-bottom: 2px solid rgba(28, 78, 112, 0.15); padding-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
-    .section-title span { background: #1c4e70; width: 6px; height: 20px; border-radius: 6px; display: inline-block; }
-    .edu-item { margin-bottom: 1.5rem; }
-    .edu-school { font-weight: 700; font-size: 1.25rem; color: #0f344b; }
-    .edu-major { font-weight: 500; color: #2d4e6b; margin: 0.2rem 0 0.3rem 0; }
-    .edu-detail { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; font-size: 0.95rem; background: #eef3f9; padding: 0.6rem 1rem; border-radius: 14px; margin: 0.8rem 0 0.2rem 0; }
-    .gpa { background: #c9ddef; border-radius: 20px; padding: 0.2rem 0.8rem; font-weight: 500; }
-    .honor-list { list-style: none; margin-top: 0.5rem; }
-    .honor-list li { margin-bottom: 0.6rem; display: flex; gap: 0.8rem; align-items: baseline; font-size: 0.98rem; }
-    .honor-tag { min-width: 5.5rem; font-weight: 600; color: #1e4a6f; }
-    .honor-desc { color: #1f3b4f; }
-    .skill-block p { margin-bottom: 0.8rem; font-size: 0.98rem; line-height: 1.5; }
-    .skill-label { font-weight: 600; color: #183f59; display: block; margin-bottom: 0.15rem; }
-    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 0.3rem 0 0.9rem 0; }
-    .tech-tag { background: white; border: 1px solid #bdd3e9; padding: 0.2rem 0.9rem; border-radius: 30px; font-size: 0.85rem; font-weight: 500; color: #193f59; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); }
-    .tech-tag.accent { background: #ddeeff; border-color: #7da2c3; font-weight: 600; color: #073959; }
-    .main { padding: 2rem 2.5rem 2rem 2rem; }
-    .project-item { margin-bottom: 2.4rem; }
-    .project-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; margin-bottom: 0.4rem; }
-    .project-name { font-size: 1.4rem; font-weight: 650; color: #0a2e44; letter-spacing: -0.01em; }
-    .project-sub { font-size: 1rem; font-weight: 400; color: #4a6b86; font-style: italic; }
-    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; margin: 0.6rem 0 0.5rem 0; }
-    .project-tech span { background: #e4ecf5; padding: 0.2rem 0.8rem; border-radius: 30px; font-size: 0.8rem; font-weight: 500; color: #153e5a; }
-    .project-desc { color: #1f3e57; margin-left: 0.2rem; padding-left: 0.8rem; border-left: 3px solid #8bb3d0; }
-    .project-desc p { margin-top: 0.6rem; font-size: 0.97rem; }
-    .project-desc ul { margin: 0.5rem 0 0.2rem 1.2rem; }
-    .project-desc li { margin-bottom: 0.45rem; font-size: 0.96rem; }
-    .footer-note { margin-top: 1.2rem; border-top: 1px dashed #b7cfdf; padding-top: 1rem; text-align: right; font-size: 0.9rem; color: #55738b; }
-    .text-small { font-size: 0.9rem; }
-    @media (max-width: 720px) { .main-content { grid-template-columns: 1fr; } .sidebar { border-right: none; border-bottom: 1px solid #e2eaf2; } .header { padding: 1.5rem; } .name { font-size: 2.3rem; } }
-  </style>
-</head>
-
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="连腾辉的个人作品集：AI Agent、安全评测、Java 后端与全栈产品开发。"><meta name="theme-color" content="#f4f5ef"><title>连腾辉 · 从想法到可靠的产品</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
 <body>
-  <div class="resume-card">
-    <div class="header">
-      <div class="name-title">
-        <span class="name">连腾辉</span>
-        <div class="badge-group">
-          <span class="badge">📞 15767252962</span>
-          <span class="badge">📧 shizhelth@outlook.com</span>
-          <span class="badge">🌐 Shizhelth</span>
-          <span class="badge">🐦 汕头 · 男 · 汉族 · 共青团员</span>
-        </div>
-      </div>
-      <div class="contact-bar">
-        <div class="contact-item"><i>🔗</i> <a href="http://shizhe.xyz" target="_blank">http://shizhe.xyz</a></div>
-        <div class="contact-item"><i>📁</i> GitHub: zhe-shi666</div>
-        <div class="contact-item"><i>📘</i> Gitee: shi-zhe666</div>
-        <div class="contact-item"><i>📕</i> CSDN: 拾哲</div>
-      </div>
-      <div class="divider"></div>
-    </div>
-
-    <div class="main-content">
-      <div class="sidebar">
-        <div class="section">
-          <div class="section-title"><span></span> 教育经历</div>
-          <div class="edu-item">
-            <div class="edu-school">吉林大学珠海科技学院</div>
-            <div class="edu-major">软件工程本科 · 计算机学院</div>
-            <div class="edu-detail">
-              <span class="gpa">GPA: 3.56/4.0</span>
-              <span>📊 综测前8%</span>
-              <span>🏅 二等奖学金</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-title"><span></span> 竞赛·证书</div>
-          <ul class="honor-list">
-            <li><span class="honor-tag">🏆 蓝桥杯</span><span class="honor-desc">省级二等奖</span></li>
-            <li><span class="honor-tag">📜 软考中级</span><span class="honor-desc">软件设计师</span></li>
-            <li><span class="honor-tag">🗄️ 计算机三级</span><span class="honor-desc">数据库</span></li>
-            <li><span class="honor-tag">⭐ 志愿者</span><span class="honor-desc">一星级志愿者</span></li>
-          </ul>
-        </div>
-
-        <div class="section">
-          <div class="section-title"><span></span> 技术栈·能力</div>
-          <div class="skill-block">
-            <span class="skill-label">Java基础 & 采集</span>
-            <div class="tech-tags">
-              <span class="tech-tag">集合/JVM</span>
-              <span class="tech-tag">OSHI</span>
-              <span class="tech-tag">IOC/AOP</span>
-            </div>
-
-            <span class="skill-label">框架 & 通信</span>
-            <div class="tech-tags">
-              <span class="tech-tag">SpringBoot</span>
-              <span class="tech-tag">WebSocket</span>
-              <span class="tech-tag">SpringTask</span>
-              <span class="tech-tag">MyBatis-Plus</span>
-            </div>
-
-            <span class="skill-label">中间件 & 数据库</span>
-            <div class="tech-tags">
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">Redis</span>
-              <span class="tech-tag">RabbitMQ</span>
-              <span class="tech-tag">Elasticsearch</span>
-            </div>
-
-            <span class="skill-label">🤖 AI 集成</span>
-            <div class="tech-tags">
-              <span class="tech-tag accent">LangChain4j</span>
-              <span class="tech-tag accent">大模型API</span>
-              <span class="tech-tag accent">提示词工程</span>
-            </div>
-
-            <span class="skill-label">工具 & 部署</span>
-            <div class="tech-tags">
-              <span class="tech-tag">Git/Maven</span>
-              <span class="tech-tag">Docker</span>
-              <span class="tech-tag">Linux</span>
-              <span class="tech-tag">Windsurf/Cursor</span>
-            </div>
-
-            <span class="skill-label">前端了解</span>
-            <div class="tech-tags">
-              <span class="tech-tag">Vue 3</span>
-              <span class="tech-tag">ECharts</span>
-              <span class="tech-tag">Element UI</span>
-              <span class="tech-tag">Axios</span>
-            </div>
-          </div>
-        </div>
-        <div class="text-small" style="color:#567e9c; margin-top:0.2rem;">⭐ 技术栈 * 持续学习</div>
-      </div>
-
-      <div class="main">
-        <div class="project-item">
-          <div class="project-header">
-            <span class="project-name">AIOps 智能运维监控平台</span>
-            <span class="project-sub">(独立开发)</span>
-          </div>
-          <div class="project-tech">
-            <span>Spring Boot 3</span><span>WebSocket</span><span>OSHI</span><span>Spring AI</span>
-            <span>MySQL</span><span>Spring Task</span><span>ECharts</span><span>Docker</span>
-          </div>
-          <div class="project-desc">
-            <p>该项目是一个集“实时感知、数据持久化、AI 智能决策”为一体的智能化运维方案，实现从监控到诊断的自动化闭环。</p>
-            <ul>
-              <li>基于<strong>WebSocket + STOMP</strong>构建消息总线，实现硬件指标亚秒级流式渲染，大幅降低监控延迟。</li>
-              <li>封装<strong>OSHI</strong>实现跨平台指标采集，通过异步线程池隔离耗时分析任务，确保采集主链路零阻塞。</li>
-              <li>设计结构化<strong>Prompt模板</strong>，自动回溯异常发生前历史记录，利用LLM实现故障根因分析(RCA)。</li>
-              <li>利用<strong>Docker Compose</strong>编排基础设施，确保了开发环境的一键并行启动与环境隔离。</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="project-item">
-          <div class="project-header">
-            <span class="project-name">社媒内容采集与AI仿写平台</span>
-            <span class="project-sub">(MediaCrawler二次开发)</span>
-          </div>
-          <div class="project-tech">
-            <span>Spring Boot</span><span>MyBatis-Plus</span><span>MySQL</span><span>JWT</span>
-            <span>Spring Task</span><span>RESTful API</span><span>windsurf</span>
-          </div>
-          <div class="project-desc">
-            <p>基于MediaCrawler(python)二次开发，支持小红书、知乎等多平台数据实时采集与AI创作，轻量化设计。</p>
-            <ul>
-              <li>运用<strong>适配器模式</strong> (PlatformAdapter) 统一5+平台接口，实现“即插即用”的平台扩展。</li>
-              <li>利用<strong>SpringTask + JWT过期策略</strong>实现数据定期保存与自动清理，贯彻轻量思想。</li>
-              <li>集成大模型API + 关键词构建，对临时数据进行平台风格AI文案生成。</li>
-              <li>基于JavaRuntime与Process，<strong>多线程异步调用Python</strong> 命令行工具，解决跨语言阻塞。</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="project-item">
-          <div class="project-header">
-            <span class="project-name">拾暂的个人博客</span>
-            <span class="project-sub">(shezhi.xyz ）（ Aurora二次开发)</span>
-          </div>
-          <div class="project-tech">
-            <span>Spring Boot</span><span>Redis</span><span>RabbitMQ</span><span>Spring Security</span>
-            <span>Elasticsearch</span><span>MyBatis-Plus</span><span>trae/cursor</span>
-          </div>
-          <div class="project-desc">
-            <p>基于Aurora二次开发，结合AI编程工具个性化修改，添加AI管家智能体，学习中间件实战。</p>
-            <ul>
-              <li>基于<strong>LangChain4j</strong>封装AiChatService，结合Redis持久化ChatMemory，实现多轮对话。</li>
-              <li>学习<strong>SpringSecurity+JWT</strong>的RBAC权限体系，动态资源加载与URL细粒度隔离。</li>
-              <li>掌握RabbitMQ消息体系，削峰填谷：邮件通知、系统日志、Elasticsearch索引同步。</li>
-              <li>完成QQ登录、邮箱注册功能，项目部署及优化。</li>
-            </ul>
-          </div>
-        </div>
-
-        <div style="margin-top: 1rem; background: #f2f7fd; border-radius: 20px; padding: 1.2rem 1.5rem;">
-          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
-            <div style="flex: 1; min-width: 160px;">
-              <div style="font-weight: 700; color: #13415a;">💾 数据库与中间件</div>
-              <div style="font-size:0.95rem; margin-top:0.3rem;">MySQL索引优化、事务隔离；Redis缓存；了解ES、RabbitMQ。</div>
-            </div>
-            <div style="flex: 1; min-width: 160px;">
-              <div style="font-weight: 700; color: #13415a;">⚙️ 部署与CI</div>
-              <div style="font-size:0.95rem; margin-top:0.3rem;">Linux常用命令、Docker镜像构建、Git工作流。</div>
-            </div>
-            <div style="flex: 1; min-width: 140px;">
-              <div style="font-weight: 700; color: #13415a;">🤖 AI实践</div>
-              <div style="font-size:0.95rem; margin-top:0.3rem;">LangChain4j / ChatMemory / RCA诊断</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-note">
-          <span>⭐ 项目 * 紧跟时事</span>
-          <span style="background:#d7e5f3; padding:0.2rem 0.8rem; border-radius:30px;">shizhe.xyz</span>
-        </div>
-      </div>
-    </div>
-    <div style="height: 6px; background: linear-gradient(90deg, #c7ddef, #8ab3d0, #c7ddef);"></div>
-  </div>
-
-  <script>
-    (function () {
-      console.log("连腾辉简历 | AIOps Monitor Updated");
-    })();
-  </script>
-</body>
-
-</html>
+<a class="skip" href="#main">跳到正文</a><div class="progress" aria-hidden="true"></div>
+<header><a class="brand" href="#">LTH<span> / 连腾辉</span></a><nav aria-label="主导航"><a href="#projects">精选项目</a><a href="#experience">实习经历</a><a href="#about">关于我</a></nav><a class="contact-link" href="#contact">聊聊机会 <span>↗</span></a></header>
+<main id="main">
+<section class="hero wrap"><div class="hero-copy"><div class="eyebrow"><i></i> SOFTWARE ENGINEERING · CLASS OF 2027</div><p class="hello">你好，我是连腾辉。</p><h1>把想法写成代码，<br>把 AI 带进<span class="highlight">真实业务</span><span class="period">。</span></h1><p class="intro">软件工程本科在读，拥有企业业务开发与全栈产品交付经验。<br class="desktop">关注 Agent 的能力，也关注权限、证据与可靠的系统边界。</p><div class="actions"><a class="button dark" href="#projects">探索我的项目 <span>↘</span></a><a class="button light" id="resume-link" href="assets/resume-ai.pdf" download>下载 AI 简历 <span>↓</span></a></div><div class="direction"><span>当前浏览方向</span><div class="switch" role="group" aria-label="求职方向"><button class="selected" data-role="ai" aria-pressed="true">AI 应用</button><button data-role="java" aria-pressed="false">Java 后端</button><button data-role="fullstack" aria-pressed="false">全栈开发</button></div></div></div>
+<div class="hero-art" aria-label="系统设计示意：想法经过业务规则、Agent 协作与验证形成产品"><div class="art-grid"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="art-label">BUILD WITH INTENT.</span><div class="node n1"><small>01 / UNDERSTAND</small><strong>理解真实问题</strong><span>需求 · 边界 · 场景</span></div><div class="node n2"><small>02 / ENGINEER</small><strong>确定性业务 × Agent</strong><span>Java + Python + TypeScript</span><div class="signal"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="node n3"><small>03 / VERIFY</small><strong><b>✓</b> 让交付有据可循</strong><span>Trace · 测试 · 人工复核</span></div><span class="art-foot">IDEA → SYSTEM → PRODUCT <b>↗</b></span></div>
+<div class="hero-bottom"><span>珠海科技学院 / 软件工程</span><span>2023 — 2027</span><a href="#projects">向下探索 ↓</a></div></section>
+<section class="strip"><div class="wrap"><span>以工程能力，连接业务与 AI</span><p>JAVA <b>·</b> PYTHON <b>·</b> SPRING BOOT <b>·</b> LANGGRAPH <b>·</b> VUE / REACT</p></div></section>
+<section id="projects" class="wrap section"><div class="section-head reveal"><div><div class="eyebrow">01 / SELECTED WORK</div><h2>做过什么，比标签更有说服力。</h2></div><p id="role-summary" aria-live="polite">从 Agent 安全到业务协作，探索可控、可追溯的 AI 应用。</p></div><div class="projects">
+<article class="project featured reveal" data-tags="ai fullstack"><div class="project-visual screenshot-gallery" role="region" aria-label="毕业设计项目截图" aria-roledescription="轮播" tabindex="0">
+<div class="visual-top"><span>AGENT SAFETY / 毕业设计</span><span>真实项目截图</span></div>
+<div class="gallery-viewport">
+<a class="gallery-slide" href="assets/agent-safety-home.png" target="_blank" rel="noopener" data-caption="平台首页 · 红队探测员"><img src="assets/agent-safety-home.png" alt="多智能体安全评估平台首页，展示红队探测员角色及开始评估入口" width="2880" height="1278" loading="lazy"><span class="zoom-hint">点击放大 ↗</span></a>
+<a class="gallery-slide" href="assets/agent-safety-timeline.png" target="_blank" rel="noopener" data-caption="评估时间线 · 流程与记录" hidden><img src="assets/agent-safety-timeline.png" alt="Agent 安全平台评估时间线，展示目标接入、红队评估、安全分析、修复与验证等流程，本次截图暂无事件记录" width="2880" height="1270" loading="lazy"><span class="zoom-hint">点击放大 ↗</span></a>
+</div>
+<div class="gallery-controls"><button type="button" data-step="-1" aria-label="上一张截图">←</button><div class="gallery-pagination"><button type="button" data-slide="0" aria-label="显示第 1 张截图" aria-pressed="true"></button><button type="button" data-slide="1" aria-label="显示第 2 张截图" aria-pressed="false"></button></div><span class="gallery-counter" aria-live="polite">01 / 02</span><button type="button" data-step="1" aria-label="下一张截图">→</button></div>
+<p class="gallery-caption">平台首页 · 红队探测员</p></div><div class="project-body"><div class="project-meta">01 / AI SECURITY <span>2026.09 — 至今</span></div><h3>大模型智能体<br>安全评测与防御修复平台</h3><p>面向本地 Python 白盒 Agent，串联能力确认、审批后测试、证据分析、补丁生成与隔离验证。</p><div class="tags"><span>LangGraph</span><span>FastAPI</span><span>Vue 3</span><span>PostgreSQL</span></div><details><summary>查看工程细节 <span>＋</span></summary><ul><li>结合 AST、模型分析与人工审阅确认目标能力，限制执行范围、轮数及停止条件。</li><li>关联工具调用、检索证据、源码位置和 Trace，规则筛查后按需进行模型分析。</li><li>补丁经人工复核、隔离验证与审批后应用至受控副本，验证失败时回滚。</li></ul><p class="boundary">已在两个本地 Python Agent 完成全流程测试；结论限定于已观察样例，不代表生产安全认证。</p></details></div></article>
+<article class="project reveal" data-tags="ai java fullstack"><div class="project-visual screenshot-gallery" role="region" aria-label="电商多 Agent 运营助手项目截图" aria-roledescription="轮播" tabindex="0">
+<div class="visual-top"><span>COMMERCE / MULTI-AGENT</span><span>真实项目截图</span></div>
+<div class="gallery-viewport">
+<a class="gallery-slide" href="assets/commerce-login.png" target="_blank" rel="noopener" data-caption="登录页 · 电商多 Agent 运营助手"><img src="assets/commerce-login.png" alt="电商多 Agent 运营助手登录页，左侧为机器人形象，右侧为账号登录表单" width="2878" height="1274" loading="lazy"><span class="zoom-hint">点击放大 ↗</span></a>
+<a class="gallery-slide" href="assets/commerce-dashboard.png" target="_blank" rel="noopener" data-caption="管理工作台 · 权限与业务入口" hidden><img src="assets/commerce-dashboard.png" alt="电商平台管理工作台，展示超级管理员身份及新品上架、订单处理、库存管理、采购补货、组织与成员入口" width="2880" height="1276" loading="lazy"><span class="zoom-hint">点击放大 ↗</span></a>
+</div>
+<div class="gallery-controls"><button type="button" data-step="-1" aria-label="上一张截图">←</button><div class="gallery-pagination"><button type="button" data-slide="0" aria-label="显示第 1 张截图" aria-pressed="true"></button><button type="button" data-slide="1" aria-label="显示第 2 张截图" aria-pressed="false"></button></div><span class="gallery-counter" aria-live="polite">01 / 02</span><button type="button" data-step="1" aria-label="下一张截图">→</button></div>
+<p class="gallery-caption">登录页 · 电商多 Agent 运营助手</p></div><div class="project-body"><div class="project-meta">02 / BUSINESS × AI <span>2026.06 — 至今</span></div><h3>电商多 Agent 运营助手</h3><p>面向多企业、多店铺团队，连接商品规划、库存采购与订单履约，让 AI 协作进入受控业务流程。</p><div class="tags"><span>Spring Boot</span><span>React</span><span>FastAPI</span><span>Docker</span></div><details><summary>查看工程细节 <span>＋</span></summary><ul><li>Java 管理权限、事务与订单库存终态，Python 输出结构化计划，关键操作人工确认。</li><li>条件原子更新处理库存，悲观锁串行化审批，唯一约束与冲突回查保障任务幂等。</li><li>租户和店铺隔离，记录 Agent 输入输出、耗时与异常，支持有限重试和确定性回退。</li></ul><p class="boundary">已完成本地可运行核心闭环；真实开放平台 OAuth 与商家侧联调待接入。</p></details></div></article>
+<article class="project reveal" data-tags="java fullstack ai"><div class="project-visual screenshot-gallery" role="region" aria-label="AIOps 监控平台项目截图" tabindex="0">
+<div class="visual-top"><span>AIOPS / OBSERVABILITY</span><span>真实项目截图</span></div>
+<div class="gallery-viewport"><a class="gallery-slide" href="assets/aiops-dashboard.png" target="_blank" rel="noopener" data-caption="节点卫士监控系统 · 实时指标与 AI 诊断面板"><img src="assets/aiops-dashboard.png" alt="节点卫士监控系统看板，展示 CPU 与内存实时曲线、硬件信息，以及当前等待报告的 AI 专家分析面板" width="2880" height="1264" loading="lazy"><span class="zoom-hint">点击放大 ↗</span></a></div>
+<div class="gallery-controls" hidden style="display:none"><span class="gallery-counter">01 / 01</span></div>
+<p class="gallery-caption">节点卫士监控系统 · 实时指标与 AI 诊断面板</p></div><div class="project-body"><div class="project-meta">03 / REALTIME SYSTEM <span>2026.03 — 2026.05</span></div><h3>分布式智能实时监控平台</h3><p>从服务器与 JVM 指标采集，到实时看板、告警治理和 AI 辅助诊断，构建完整的监控链路。</p><div class="tags"><span>Spring AI</span><span>Redis</span><span>WebSocket</span><span>Vue / ECharts</span></div><details><summary>查看工程细节 <span>＋</span></summary><ul><li>OSHI / Spring Task 采集指标，通过 WebSocket / STOMP 推送，接入 Prometheus。</li><li>Redis Pub/Sub 分发多节点指标，分布式冷却锁控制诊断并发，不可用时降级本地锁。</li><li>异步调用本地 Ollama 生成根因假设和排查命令，避免阻塞监控主链路。</li></ul></details></div></article>
+</div></section>
+<section id="experience" class="experience section"><div class="wrap"><div class="section-head reveal"><div><div class="eyebrow">02 / EXPERIENCE</div><h2>在真实场景里，打磨工程能力。</h2></div><p>从独立产品开发，到企业供应链系统。</p></div><div class="timeline"><article class="experience-row reveal"><div class="time">2026.06 — 2026.09<span>01</span></div><div><h3>广东用友</h3><p class="job">客开实习生 · 中油 BIP 项目</p><p>参与采购、合同、物料与供应链业务，累计承担 10 余项开发与排障任务。基于 Java、Spring 和 MDD / YPD 交付业务规则与接口。</p><ul><li>MQ / OpenAPI / 网关跨租户同步，处理档案映射、授权与响应结构差异。</li><li>结合 SQL、日志、JVM 远程调试与 Arthas 排障，完成补丁构建、多环境发布及热部署验证。</li></ul></div></article><article class="experience-row reveal"><div class="time">2026.03 — 2026.05<span>02</span></div><div><h3>珠海灵思纪元科技</h3><p class="job">全栈实习生 · 独立负责 3 款产品</p><div class="product-list"><div><strong>PredPulse <span>市场研究平台</span></strong><p>实时行情与带证据引用的 RAG；WebSocket 断连后轮询兜底，无匹配时拒答。</p></div><div><strong>aethermap <span>A 股热力图</span></strong><p>Vue 3、Canvas 2D 与 D3 可视化；多源 Provider 适配、数据校验与缓存 / 快照回退。</p></div><div><strong>App for YouTube All In One <span>macOS 学习工作台</span></strong><p>SwiftUI / WKWebView，四级数据模型、JSON 原子持久化与视频时间点回溯；完成 StoreKit 2 与上架准备。</p></div></div></div></article></div></div></section>
+<section id="about" class="wrap section"><div class="section-head reveal"><div><div class="eyebrow">03 / TOOLKIT & ABOUT</div><h2>能连接前后端，也能思考边界。</h2></div><p>用合适的技术解决具体问题。</p></div><div class="about-grid"><div class="skills reveal"><div><span>01</span><h3>AI 应用与可靠性</h3><p>LangGraph / FastAPI / Pydantic<br>RAG / Qdrant / 工具权限 / Trace / 人工审批</p></div><div><span>02</span><h3>后端与业务系统</h3><p>Java / Spring Boot / Spring Security<br>PostgreSQL / MySQL / Redis / MQ / 事务与幂等</p></div><div><span>03</span><h3>界面与工程交付</h3><p>Vue 3 / React / TypeScript / SwiftUI<br>Docker / Linux / Git / Maven / Prometheus</p></div></div><aside class="education reveal"><div class="eyebrow">LEARNING, ALWAYS.</div><h3>珠海科技学院</h3><p>软件工程 · 全日制本科<br>2023.09 — 2027.06</p><div class="edu-stats"><div><strong>3.45<span>/4.0</span></strong><small>GPA</small></div><div><strong>前 10%</strong><small>年级综测</small></div></div><p class="honors">二等奖学金 / 蓝桥杯省级二等奖<br>软考中级 · 软件设计师<br>计算机三级 · 数据库</p></aside></div></section>
+<section id="contact" class="contact-section"><div class="wrap reveal"><div class="eyebrow">LET’S BUILD SOMETHING MEANINGFUL.</div><h2>期待下一次，<br>把好想法变成<span>好产品。</span></h2><a class="email" href="mailto:shizhelth@outlook.com">shizhelth@outlook.com ↗</a><div class="contact-bottom"><a href="tel:15767252962">电话 · 15767252962</a><button id="copy-wechat">复制微信 · Shizhelth</button><a href="https://github.com/zhe-shi-lth" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://shizhe.xyz" target="_blank" rel="noopener noreferrer">个人网站 ↗</a></div><p id="copy-status" role="status"></p></div></section>
+</main><footer class="wrap"><span>© <span id="year">2026</span> 连腾辉</span><span>用代码表达，用交付证明。</span><a href="#">回到顶部 ↑</a></footer>
+<dialog id="image-viewer" aria-label="项目截图大图"><div class="viewer-toolbar"><span id="viewer-caption"></span><button type="button" id="viewer-close" aria-label="关闭大图">关闭 ×</button></div><img id="viewer-image" alt=""><div class="viewer-controls"><button type="button" id="viewer-prev" aria-label="上一张大图">← 上一张</button><span id="viewer-count" aria-live="polite"></span><button type="button" id="viewer-next" aria-label="下一张大图">下一张 →</button></div></dialog></body></html>
